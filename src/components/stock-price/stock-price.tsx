@@ -1,4 +1,4 @@
-import { Component, Fragment, h, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
 import { AV_API_KEY } from '../../global/global';
 
 @Component({
@@ -70,7 +70,7 @@ export class StockPrice {
 
   handleSubmit(event: Event) {
     event.preventDefault();
-    this.symbol = this.stockInput.value;
+    this.symbol = this.stockInput.value.trim();
   }
 
   handleInput(event: Event) {
@@ -91,7 +91,7 @@ export class StockPrice {
       content = <p>Price: ${this.currentPrice.toFixed(2)}</p>;
     }
     return (
-      <Fragment>
+      <Host>
         <form onSubmit={e => this.handleSubmit(e)}>
           <input ref={el => (this.stockInput = el)} value={this.userInput} onInput={e => this.handleInput(e)} />
           <button type="submit" disabled={!this.isInputValid || this.isFetching}>
@@ -99,7 +99,7 @@ export class StockPrice {
           </button>
         </form>
         <div>{content}</div>
-      </Fragment>
+      </Host>
     );
   }
 }

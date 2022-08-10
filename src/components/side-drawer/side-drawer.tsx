@@ -1,4 +1,4 @@
-import { Component, Fragment, h, Method, Prop, State } from '@stencil/core';
+import { Component, h, Host, Method, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'uc-side-drawer',
@@ -39,7 +39,7 @@ export class SideDrawer {
     }
 
     return (
-      <Fragment>
+      <Host>
         <div class="backdrop" onClick={() => this.toggleOpen()}></div>
         <aside>
           <header>
@@ -56,7 +56,7 @@ export class SideDrawer {
           </section>
           <main>{mainContent}</main>
         </aside>
-      </Fragment>
+      </Host>
     );
   }
 }
