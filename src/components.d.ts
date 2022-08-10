@@ -11,6 +11,9 @@ export namespace Components {
         "open": boolean;
         "toggleOpen": () => Promise<void>;
     }
+    interface UcStockPrice {
+        "symbol": string;
+    }
     interface UcTooltip {
         "text": string;
     }
@@ -22,6 +25,12 @@ declare global {
         prototype: HTMLUcSideDrawerElement;
         new (): HTMLUcSideDrawerElement;
     };
+    interface HTMLUcStockPriceElement extends Components.UcStockPrice, HTMLStencilElement {
+    }
+    var HTMLUcStockPriceElement: {
+        prototype: HTMLUcStockPriceElement;
+        new (): HTMLUcStockPriceElement;
+    };
     interface HTMLUcTooltipElement extends Components.UcTooltip, HTMLStencilElement {
     }
     var HTMLUcTooltipElement: {
@@ -30,6 +39,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "uc-side-drawer": HTMLUcSideDrawerElement;
+        "uc-stock-price": HTMLUcStockPriceElement;
         "uc-tooltip": HTMLUcTooltipElement;
     }
 }
@@ -38,11 +48,15 @@ declare namespace LocalJSX {
         "drawerTitle"?: string;
         "open"?: boolean;
     }
+    interface UcStockPrice {
+        "symbol"?: string;
+    }
     interface UcTooltip {
         "text"?: string;
     }
     interface IntrinsicElements {
         "uc-side-drawer": UcSideDrawer;
+        "uc-stock-price": UcStockPrice;
         "uc-tooltip": UcTooltip;
     }
 }
@@ -51,6 +65,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "uc-side-drawer": LocalJSX.UcSideDrawer & JSXBase.HTMLAttributes<HTMLUcSideDrawerElement>;
+            "uc-stock-price": LocalJSX.UcStockPrice & JSXBase.HTMLAttributes<HTMLUcStockPriceElement>;
             "uc-tooltip": LocalJSX.UcTooltip & JSXBase.HTMLAttributes<HTMLUcTooltipElement>;
         }
     }
