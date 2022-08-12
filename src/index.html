@@ -7,44 +7,15 @@
     <script type="module" src="/build/web-components-stencil.esm.js"></script>
     <script nomodule src="/build/web-components-stencil.js"></script>
     <style>
-      body {
-        font-family: sans-serif;
-      }
-      .side-nav ul {
-        list-style: none;
-      }
-      .side-nav a {
-        text-decoration: none;
-        color: black;
-      }
-      .side-nav li {
-        margin: 1rem 0;
+      html {
+        --color-primary: #3b013b;
+        --color-secondary: #750175;
+        --color-gray: #ccc;
       }
     </style>
   </head>
   <body>
     <uc-stock-price symbol="aapl"></uc-stock-price>
     <uc-stock-finder></uc-stock-finder>
-    <!-- <button id="side-drawer-btn">Open Side Menu</button>
-    <uc-side-drawer title="Main Menu">
-      <nav class="side-nav">
-        <ul>
-          <li><a href="/">A Link</a></li>
-          <li><a href="/">Another Link</a></li>
-          <li><a href="/">A Third Link</a></li>
-        </ul>
-      </nav>
-    </uc-side-drawer>
-    <p>This is a <uc-tooltip text="lalala">tooltip</uc-tooltip></p>
-    <script>
-      const sideDrawerButton = document.querySelector('#side-drawer-btn');
-      const sideDrawer = document.querySelector('uc-side-drawer');
-
-      sideDrawerButton.addEventListener('click', () => {
-        if (!sideDrawer.open) {
-          sideDrawer.toggleOpen();
-        }
-      });
-    </script> -->
   </body>
 </html>

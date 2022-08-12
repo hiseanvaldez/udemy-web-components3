@@ -1,5 +1,5 @@
 :host {
-  border: 2px solid #3b013b;
+  border: 2px solid var(--color-primary, black);
   margin: 2rem;
   padding: 1rem;
   display: block;
@@ -10,7 +10,7 @@
 
 form input {
   font: inherit;
-  color: #3b013b;
+  color: var(--color-primary, black);
   padding: 0.1rem 0.25rem;
   margin-bottom: 0.5rem;
   border-radius: 8px;
@@ -23,16 +23,16 @@ form button:focus {
 
 form button:disabled {
   color: white;
-  background-color: #ccc;
-  border-color: #ccc;
+  background-color: var(--color-gray, gray);
+  border-color: var(--color-gray, gray);
   cursor: not-allowed;
 }
 
 form button {
   font: inherit;
   padding: 0.25rem 0.5rem;
-  border: 1px solid #3b013b;
-  background-color: #3b013b;
+  border: 1px solid var(--color-primary, black);
+  background-color: var(--color-primary, black);
   color: white;
   cursor: pointer;
   border-radius: 8px;
@@ -40,8 +40,8 @@ form button {
 
 form button:hover,
 form button:active {
-  background: #750175;
-  border-color: #750175;
+  background: var(--color-secondary, darkgray);
+  border-color: var(--color-secondary, darkgray);
   outline: none;
 }
 
@@ -54,5 +54,12 @@ ul {
 li {
   margin: 0.25rem 0;
   padding: 0.25rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-gray, gray);
+  border-radius: 8px;
+  cursor: pointer;
+}
+li:hover,
+li:active {
+  background: var(--color-secondary, darkgray);
+  color: white;
 }

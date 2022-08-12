@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { AV_API_KEY } from '../../global/global';
 
 @Component({
@@ -26,6 +26,15 @@ export class StockPrice {
     this.userInput = this.symbol;
     this.isInputValid = true;
     this.isFetching = true;
+  }
+
+  @Listen('ucSymbolSelected', { target: 'body' })
+  handleSymbolSelected(event: CustomEvent) {
+    if (!event.detail) {
+      return;
+    }
+    this.isInputValid = true;
+    this.symbol = event.detail;
   }
 
   componentWillLoad() {
@@ -91,14 +100,14 @@ export class StockPrice {
       content = <p>Price: ${this.currentPrice.toFixed(2)}</p>;
     }
     return (
-      <Host>
+      <Host class={this.errorMessage ? 'error' : ''}>
         <form onSubmit={e => this.handleSubmit(e)}>
           <input ref={el => (this.stockInput = el)} value={this.userInput} onInput={e => this.handleInput(e)} />
           <button type="submit" disabled={!this.isInputValid || this.isFetching}>
             Get Current Price
           </button>
         </form>
-        <div>{content}</div>
+        <div>{this.isFetching ? <uc-spinner></uc-spinner> : content}</div>
       </Host>
     );
   }

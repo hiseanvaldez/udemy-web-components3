@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 import { AV_API_KEY } from '../../global/global';
 
 @Component({
@@ -9,7 +9,10 @@ import { AV_API_KEY } from '../../global/global';
 export class StockFinder {
   nameInput: HTMLInputElement;
   @State() userInput: string;
-  @State() results: Array<{ symbol: string; name: string }>;
+  @State() results: Array<{ symbol: string; name: string }> = [];
+  @State() isFetching = false;
+
+  @Event({ bubbles: true, composed: true }) ucSymbolSelected: EventEmitter<string>;
 
   @Prop({ mutable: true }) name = '';
   @Watch('name')
@@ -22,6 +25,7 @@ export class StockFinder {
   }
 
   async fetchCompanies(name: string) {
+    this.isFetching = true;
     try {
       const response = await fetch(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${name}&apikey=${AV_API_KEY}`);
       if (response.status !== 200) {
@@ -41,7 +45,12 @@ export class StockFinder {
       });
     } catch (error) {
     } finally {
+      this.isFetching = false;
     }
+  }
+
+  handleSelectSymbol(symbol: string) {
+    this.ucSymbolSelected.emit(symbol);
   }
 
   handleSubmit(event: Event) {
@@ -60,13 +69,21 @@ export class StockFinder {
           <input ref={el => (this.nameInput = el)} value={this.userInput} onInput={e => this.handleInput(e)} />
           <button type="submit">Search Stock</button>
         </form>
-        <ul>
-          {this.results.map(result => (
-            <li>
-              <strong>{result['symbol']}</strong> - {result['name']}
-            </li>
-          ))}
-        </ul>
+        {this.isFetching ? (
+          <uc-spinner></uc-spinner>
+        ) : (
+          <ul>
+            {this.results.map(result => (
+              <li
+                onClick={() => {
+                  this.handleSelectSymbol(result.symbol);
+                }}
+              >
+                <strong>{result.symbol}</strong> - {result.name}
+              </li>
+            ))}
+          </ul>
+        )}
       </Host>
     );
   }
